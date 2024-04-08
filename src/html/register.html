@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+    <meta charset = "UTF-8">
+    <title>Social network</title>
+    <link rel = "stylesheet" href = "../css/style.css">
+    <script src="//api.backendless.com/sdk/js/latest/backendless.min.js"></script>
+    <script src="../js/init.js"></script>
+</head>
+<body>
+    <div class = "wrapper">
+        <header class = "header"></header>
+        <script src="../js/header.js"></script>
+        <main class="main">
+            <div class="container">
+                <div class="form__wrapper">
+                    <div class="form__header">Форма реєстрації</div>
+                    <form method="post" class="form" name="register" >
+                        <div class="input__group">
+                            <label for="email" class="input__label">Електронна пошта</label>
+                            <input id="email" type="email" name="email" class="input__field">
+                        </div>
+                        <div class="input__group">
+                            <label for="password" class="input__label">Пароль</label>
+                            <input id="password" type="password" name="password" class="input__field">
+                        </div>
+                        <div class="input__group">
+                            <label for="username" class="input__label">Ім'я користувача</label>
+                            <input id="username" type="text" name="username" class="input__field">
+                        </div>
+                        <div class="input__group">
+                            <label for="age" class="input__label">Вік</label>
+                            <input id="age" type="number" name="age" class="input__field">
+                        </div>
+                        <div class="input__group">
+                            <label for="country" class="input__label">Країна</label>
+                            <input id="country" type="text" name="country" class="input__field">
+                        </div>
+                        <div class="input__group">
+                            <label for="sex" class="input__label">Стать</label>
+                            <select id="sex" name="sex" class="input__field">
+                                <option value="Чоловік">Чоловік</option>
+                                <option value="Жінка">Жінка</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="button submit__button">Зареєструватися</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="../js/register.js"></script>
+</body>
+</html>

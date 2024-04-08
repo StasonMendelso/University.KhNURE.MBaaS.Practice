@@ -1,0 +1,85 @@
+html,
+body {
+    padding: 0;
+}
+
+body {
+    margin: 0;
+}
+
+:where(p, h1, h2, h3, h4)[class] {
+    margin-block: 0;
+}
+
+*,
+::after,
+::before {
+    box-sizing: border-box;
+}
+
+body,
+html {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    min-height: 100dvh;
+}
+
+img,
+video {
+    display: block;
+}
+
+video {
+    object-fit: cover;
+}
+
+fieldset {
+    border: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+
+    &:focus,
+    &:active {
+        outline: transparent;
+    }
+}
+
+ol,
+ul,
+li {
+    list-style-position: inside;
+}
+
+:where(ol, ul, li)[class] {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+button {
+    outline: transparent;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    padding: 0;
+
+    &::-moz-focus-inner {
+        padding: 0;
+        border: 0;
+    }
+}
+
+input,
+button,
+textarea {
+    font: inherit;
+    color: inherit;
+}
+
