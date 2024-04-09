@@ -94,10 +94,24 @@
     width: 100%;
     background-color: #e3e3e3;
 }
+button:disabled,
+button[disabled]{
+    border: 1px solid #999999;
+    background-color: #cccccc;
+    color: #666666;
+    opacity: 50%;
+    cursor: not-allowed;
+}
 .submit__button{
     transition-duration: 0.3s;
 }
-.submit__button:hover{
+.submit__button:hover:enabled{
     background-color: #b9b9b9;
     transition-duration: 0.3s;
+}
+.successful__registration{
+    display: none;
+}
+.successful__registration.active{
+    display: block;
 }

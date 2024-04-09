@@ -50,11 +50,9 @@ function fetchContent(url, extractor, error) {
 };
 
 
-//
-// const APP_ID = 'D6BB7AB9-473E-1462-FF54-292662C3A500';
-// const API_KEY = 'E3BA72F7-CBF3-401C-8B0C-B352D52FE4E3';
-// const BACKENDLESS_INITIALIZED_APP_KEY = "BackendlessInitializedApp";
-//
-//
-//     Backendless.serverURL = 'https://eu-api.backendless.com';
-//     Backendless.initApp(APP_ID, API_KEY);
+
+const APP_ID = 'D6BB7AB9-473E-1462-FF54-292662C3A500';
+const API_KEY = 'E3BA72F7-CBF3-401C-8B0C-B352D52FE4E3';
+
+Backendless.serverURL = 'https://eu-api.backendless.com';
+Backendless.initApp(APP_ID, API_KEY);

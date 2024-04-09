@@ -7,3 +7,4 @@ fetchContentAndHandle(
         document.querySelector("header").outerHTML = header.outerHTML;
     }
 );
+
