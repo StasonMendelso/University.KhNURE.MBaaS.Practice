@@ -7,7 +7,7 @@ the university "[Kharkiv National University of Radio Electronics][1]".
 
 ## What is the purpose of this project?
 
-The **purpose** of the project is ***implementing simple web-site*** (simple social network),using a Backendless service 
+The **purpose** of the project is ***implementing simple web-site*** (simple social network),using a Backendless service
 as a BaaS.
 
 ## Getting Started
@@ -16,7 +16,7 @@ For running the app you need to download the latest version from the **main** br
 
 ### Prerequisites
 
-For running the project you don't need anything.
+For running the project you need only a **[Docker Service](https://www.docker.com/)** installed on you machine.
 
 ### Installation Instruction
 
@@ -66,19 +66,37 @@ Project has been installed.
        changes are observed by the `git` and you can always make a rollback of
        all changes `git reset --hard`.
 
+#### How to start-up a web-application?
+
+After you pulled the code, you need to open a command line/terminal in the project's root directory
+and build a docker image using the next command:
+
+```
+docker build . -t social-network-web-app:latest
+```
+
+After successfully built an image you need to run a container. You can use a first command, if you want to see logs in
+your terminal, otherwise - choose the second one:
+```
+docker run -i -p 8080:8080 social-network-web-app
+```
+```
+docker run -d -p 8080:8080 social-network-web-app
+```
+Open your browser and enter the address http://localhost:8080.
 
 [//]: # (## Examples of web-application's pages)
 
 [//]: # ()
+
 [//]: # (Here you can find the screenshots of the web-application:)
 
 [//]: # ()
 
-
-
 ## Authors
 
-* **Stanislav Hlova** - *All work* - [StasonMendelso](https://github.com/StasonMendelso)
+* **Stanislav Hlova** - *All
+  work* - [StasonMendelso](https://github.com/StasonMendelso) [![wakatime](https://wakatime.com/badge/user/b33e0124-90c1-44a9-95a8-0f09b324ad70/project/018ea7da-270a-4979-a370-b5736065a6e2.svg)](https://wakatime.com/badge/user/b33e0124-90c1-44a9-95a8-0f09b324ad70/project/018ea7da-270a-4979-a370-b5736065a6e2)
 
 [1]:https://nure.ua/
 
