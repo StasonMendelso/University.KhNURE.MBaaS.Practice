@@ -1,28 +1,33 @@
-let registerForm = document.forms.register;
+document.forms.register.addEventListener('submit', function(event) {
+    // Check if the event target is the registerForm
+    if (event.target === document.forms.register) {
+        // Prevent the default form submission behavior
+        event.preventDefault();
 
-registerForm.addEventListener("submit", function (event) {
-    event.preventDefault();
+        let registerForm = event.target;
 
-    let user = new Backendless.User();
-    user.email = registerForm.email.value;
-    user.password = registerForm.password.value;
-    user.country = registerForm.country.value;
-    user.age = parseInt(registerForm.age.value);
-    user.sex = registerForm.sex.value;
-    user.username = registerForm.username.value;
+        let user = new Backendless.User();
+        user.email = registerForm.email.value;
+        user.password = registerForm.password.value;
+        user.country = registerForm.country.value;
+        user.age = parseInt(registerForm.age.value);
+        user.sex = registerForm.sex.value;
+        user.username = registerForm.username.value;
 
-    console.log(user);
+        console.log(user);
 
-    function userRegistered( user )
-    {
-        console.log( "user has been registered" );
+        // Define callback functions
+        function userRegistered(user) {
+            console.log("User has been registered:", user);
+        }
+
+        function gotError(err) {
+            console.error("Error during registration:", err);
+        }
+
+        // Perform user registration
+        Backendless.UserService.register(user)
+            .then(userRegistered)
+            .catch(gotError);
     }
-
-    function gotError( err ) // see more on error handling
-    {
-        console.log( "error message - " + err.message );
-        console.log( "error code - " + err.statusCode );
-    }
-
-    Backendless.UserService.register( user ).then( userRegistered ).catch( gotError );
-})
+});

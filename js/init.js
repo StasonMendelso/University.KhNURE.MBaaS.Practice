@@ -6,15 +6,18 @@ routes = {
         return getElementFromBody(data, '#register-content');
     })
 };
+const SCRIPT_TAG_REGEX = /<script\b[^>]*>/;
 
-let contentDiv = document.getElementById('content');
-contentDiv.innerHTML = getContentByRoute(window.location.pathname);
+const CONTENT_DIV = document.getElementById('content');
+setContentAndJsScripts(window.location.pathname);
 function getContentByRoute(path){
     let content = routes[path];
     if (!content){
-        return "<span>Щось пішло не так, спробуйте пізніше :(</span>";
+        let htmlSpanElement = new HTMLSpanElement();
+        htmlSpanElement.textContent = "Щось пішло не так, спробуйте пізніше :(";
+        return htmlSpanElement;
     }
-    return content.innerHTML;
+    return content;
 }
 let onNavItemClick = (pathName) => {
     window.history.pushState(
@@ -22,9 +25,28 @@ let onNavItemClick = (pathName) => {
         pathName,
         window.location.origin + pathName
     );
-    contentDiv.innerHTML = getContentByRoute(pathName);
+    setContentAndJsScripts(pathName);
 }
 
 window.onpopstate = () => {
-    contentDiv.innerHTML = getContentByRoute(window.location.pathname);
+    setContentAndJsScripts(window.location.pathname);
+}
+function setContentAndJsScripts(path){
+    let content = getContentByRoute(path);
+    CONTENT_DIV.innerHTML = content.innerHTML;
+
+    if (content.innerHTML.match(SCRIPT_TAG_REGEX)){
+        let tempDiv = document.createElement("div");
+        tempDiv.innerHTML = content.innerHTML;
+        let scripts = tempDiv.querySelectorAll("script");
+        for (let script of scripts){
+            const newScript = document.createElement('script');
+            newScript.src = script.src;
+            if (CONTENT_DIV.querySelector(`script[src='${script.src}']`)){
+                continue;
+            }
+            CONTENT_DIV.appendChild(newScript);
+        }
+
+    }
 }

@@ -1,6 +1,4 @@
-let loginForm = document.forms.login;
-
-loginForm.addEventListener("submit", function (event) {
+document.forms.login.addEventListener("submit", function (event) {
     event.preventDefault();
 
     function userLoggedIn( user )
