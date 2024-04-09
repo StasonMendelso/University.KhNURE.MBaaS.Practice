@@ -13,7 +13,7 @@ setContentAndJsScripts(window.location.pathname);
 function getContentByRoute(path){
     let content = routes[path];
     if (!content){
-        let htmlSpanElement = new HTMLSpanElement();
+        let htmlSpanElement = document.createElement("span");
         htmlSpanElement.textContent = "Щось пішло не так, спробуйте пізніше :(";
         return htmlSpanElement;
     }

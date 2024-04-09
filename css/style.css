@@ -47,7 +47,28 @@
 .menu__link:hover{
     text-decoration: underline;
 }
+.menu__log__item a:last-child{
+    display: none;
+}
+.menu__log__item a:first-child{
+    display: block;
+}
 
+.menu__log__item.logged a:first-child{
+    display: none;
+}
+.menu__log__item.logged a:last-child{
+    display: block;
+}
+.menu__log__item.logged ~.menu__profile__item,
+.menu__log__item.logged ~.menu__files__item{
+    display: block;
+}
+
+.menu__log__item ~.menu__profile__item,
+.menu__log__item ~.menu__files__item{
+    display: none;
+}
 .main {
     flex: 1 1 auto;
 }

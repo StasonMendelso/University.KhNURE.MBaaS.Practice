@@ -7,23 +7,23 @@ function getElementFromBody(htmlPage, querySelector) {
 
 
 function fetchContentAndHandle(url, success, error) {
-    fetch(url)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
+    if (!window.XMLHttpRequest) return;
+    let request = new XMLHttpRequest();
+    request.onreadystatechange = function () {
+        if (request.readyState === 4) {
+            if (request.status !== 200) {
+                if (error && typeof error === 'function') {
+                    error(request.responseText, request);
+                }
+                return;
             }
-            return response.text();
-        })
-        .then(data => {
             if (success && typeof success === 'function') {
-                success(data);
+                success(request.responseText);
             }
-        })
-        .catch(err => {
-            if (error && typeof error === 'function') {
-                error(err.message);
-            }
-        });
+        }
+    };
+    request.open('GET', url, false);
+    request.send();
 };
 
 function fetchContent(url, extractor, error) {
