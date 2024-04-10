@@ -48,11 +48,28 @@ function fetchContent(url, extractor, error) {
     return result;
 
 };
+initApp();
+async function initApp(){
+    const APP_ID = 'D6BB7AB9-473E-1462-FF54-292662C3A500';
+    const API_KEY = 'E3BA72F7-CBF3-401C-8B0C-B352D52FE4E3';
+
+    Backendless.serverURL = 'https://eu-api.backendless.com';
+    await Backendless.initApp(APP_ID, API_KEY);
+
+    await setCurrentUserIfLoggedOnServer()
+    refreshHeader();
+}
 
 
 
-const APP_ID = 'D6BB7AB9-473E-1462-FF54-292662C3A500';
-const API_KEY = 'E3BA72F7-CBF3-401C-8B0C-B352D52FE4E3';
-
-Backendless.serverURL = 'https://eu-api.backendless.com';
-Backendless.initApp(APP_ID, API_KEY);
+async function setCurrentUserIfLoggedOnServer() {
+    let key = "Backendless_D6BB7AB9-473E-1462-FF54-292662C3A500";
+    let userTokenLs = JSON.parse(localStorage.getItem(key))[`user-token`];
+    if (userTokenLs) {
+        if (await Backendless.UserService.isValidLogin()) {
+            Backendless.UserService.currentUser = {"user-token": userTokenLs};
+        } else {
+            localStorage.removeItem(key);
+        }
+    }
+}

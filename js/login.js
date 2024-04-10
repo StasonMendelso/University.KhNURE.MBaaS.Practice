@@ -1,15 +1,28 @@
 document.forms.login.addEventListener("submit", function (event) {
     event.preventDefault();
+    let loginForm = event.target;
+    let errorsDiv = loginForm.querySelector(".errors__registration");
+    errorsDiv.classList.remove("active");
+    errorsDiv.childNodes.forEach(node=> {node.remove()});
+
+    let submitButton = loginForm.querySelector(".submit__button");
+    submitButton.disabled = true;
 
     function userLoggedIn( user )
     {
         console.log( "user has logged in" );
+        //redirect to Profile
+        //change header
+        refreshHeader();
     }
 
     function gotError( err ) // see more on error handling
     {
-        console.log( "error message - " + err.message );
-        console.log( "error code - " + err.statusCode );
+        let spanElement = document.createElement("span");
+        spanElement.innerText = err;
+        errorsDiv.appendChild(spanElement);
+        errorsDiv.classList.add("active");
+        submitButton.disabled = false;
     }
 
     Backendless.UserService.login( loginForm.email.value, loginForm.password.value, true)

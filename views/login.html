@@ -12,10 +12,10 @@
         <header class = "header"></header>
         <script src="../js/header.js"></script>
         <main class="main">
-            <div class="container">
+            <div class="container" id="login-content">
                 <div class="form__wrapper">
                     <div class="form__header">Форма входу</div>
-                    <form method="post" class="form" name="login">
+                    <form method="post" class="form" name="login" action="/must-not-go-here">
                         <div class="input__group">
                             <label for="username" class="input__label">Електронна пошта</label>
                             <input id="username" type="text" name="email" class="input__field">
@@ -26,11 +26,14 @@
                             <a href="">Забули пароль?</a>
                         </div>
                         <button type="submit" class="button submit__button">Увійти</button>
+                        <div class="errors__registration">
+
+                        </div>
                     </form>
                 </div>
+                <script src="../js/login.js"></script>
             </div>
         </main>
     </div>
-    <script src="../js/login.js"></script>
 </body>
 </html>

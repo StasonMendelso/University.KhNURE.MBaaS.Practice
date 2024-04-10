@@ -1,7 +1,5 @@
 document.forms.register.addEventListener('submit', function(event) {
-    // Check if the event target is the registerForm
     if (event.target === document.forms.register) {
-        // Prevent the default form submission behavior
         event.preventDefault();
         let registerForm = event.target;
         let errorsDiv = registerForm.querySelector(".errors__registration");
