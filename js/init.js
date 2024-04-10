@@ -1,8 +1,8 @@
 routes = {
-    '/': fetchContent('views/init.html', function (data) {
+    '/': ()=> fetchContent('views/init.html', function (data) {
         return getElementFromBody(data, '#init-content');
     }),
-    '/register': fetchContent('views/register.html', function (data) {
+    '/register': ()=> fetchContent('views/register.html', function (data) {
         return getElementFromBody(data, '#register-content');
     })
 };
@@ -17,7 +17,7 @@ function getContentByRoute(path){
         htmlSpanElement.textContent = "Щось пішло не так, спробуйте пізніше :(";
         return htmlSpanElement;
     }
-    return content;
+    return content();
 }
 let onNavItemClick = (pathName) => {
     window.history.pushState(
