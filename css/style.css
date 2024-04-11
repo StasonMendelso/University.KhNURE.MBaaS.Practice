@@ -133,3 +133,10 @@ button[disabled]{
 .successful__registration.active{
     display: block;
 }
+
+.successful__reset-password{
+    display: none;
+}
+.successful__reset-password.active{
+    display: block;
+}

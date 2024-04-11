@@ -1,7 +1,7 @@
 document.forms.login.addEventListener("submit", function (event) {
     event.preventDefault();
     let loginForm = event.target;
-    let errorsDiv = loginForm.querySelector(".errors__registration");
+    let errorsDiv = loginForm.querySelector(".errors__login");
     errorsDiv.classList.remove("active");
     errorsDiv.childNodes.forEach(node=> {node.remove()});
 
@@ -12,6 +12,7 @@ document.forms.login.addEventListener("submit", function (event) {
     {
         console.log( "user has logged in" );
         //redirect to Profile
+        //todo redirect to profile
         //change header
         refreshHeader();
     }

@@ -18,6 +18,9 @@ routes = {
 
         return routes[`/login`]();
     },
+    '/reset': () => fetchContent('views/resetPassword.html', function (data) {
+        return getElementFromBody(data, '#reset-password-content');
+    }),
 };
 const SCRIPT_TAG_REGEX = /<script\b[^>]*>/;
 

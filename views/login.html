@@ -17,16 +17,16 @@
                     <div class="form__header">Форма входу</div>
                     <form method="post" class="form" name="login" action="/must-not-go-here">
                         <div class="input__group">
-                            <label for="username" class="input__label">Електронна пошта</label>
-                            <input id="username" type="text" name="email" class="input__field">
+                            <label for="email" class="input__label">Електронна пошта</label>
+                            <input id="email" type="text" name="email" class="input__field">
                         </div>
                         <div class="input__group">
                             <label for="password" class="input__label">Пароль</label>
                             <input id="password" type="password" name="password" class="input__field">
-                            <a href="">Забули пароль?</a>
+                            <a href="#" onclick="onNavItemClick('/reset'); return false;">Забули пароль?</a>
                         </div>
                         <button type="submit" class="button submit__button">Увійти</button>
-                        <div class="errors__registration">
+                        <div class="errors__login">
 
                         </div>
                     </form>
