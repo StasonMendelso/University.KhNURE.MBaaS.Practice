@@ -20,6 +20,13 @@ document.forms.register.addEventListener('submit', function(event) {
         function userRegistered(user) {
             console.log("User has been registered:", user);
             registerForm.querySelector(".successful__registration").classList.add("active");
+            Backendless.Files.createDirectory(`/web/users/${user.email}`)
+                .then(()=>{
+                    console.log("personal directory for user was created");
+                })
+                .catch(err => {
+                    console.log(`error with creating personal directory for user ${err}`);
+                });
         }
 
         function gotError(err) {
