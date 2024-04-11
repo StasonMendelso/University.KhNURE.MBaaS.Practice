@@ -21,6 +21,9 @@ routes = {
     '/reset': () => fetchContent('views/resetPassword.html', function (data) {
         return getElementFromBody(data, '#reset-password-content');
     }),
+    '/profile': () => fetchContent('views/profile.html', function (data) {
+        return getElementFromBody(data, '#profile-content');
+    }),
 };
 const SCRIPT_TAG_REGEX = /<script\b[^>]*>/;
 

@@ -11,9 +11,8 @@ document.forms.login.addEventListener("submit", function (event) {
     function userLoggedIn( user )
     {
         console.log( "user has logged in" );
-        //redirect to Profile
-        //todo redirect to profile
-        //change header
+        onNavItemClick("/profile");
+        console.log("resrshheader");
         refreshHeader();
     }
 
