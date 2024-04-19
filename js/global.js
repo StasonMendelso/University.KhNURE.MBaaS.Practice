@@ -1,4 +1,7 @@
 const ROOT_DIRECTORY = "/web/users";
+const APP_ID = 'D6BB7AB9-473E-1462-FF54-292662C3A500';
+const API_KEY = 'E3BA72F7-CBF3-401C-8B0C-B352D52FE4E3';
+const REST_API_KEY = `5F4C8D91-4877-4EDE-85D7-9E5D416FA99E`;
 function getElementFromBody(htmlPage, querySelector) {
     let el = document.createElement("body");
     el.innerHTML = htmlPage;
@@ -51,8 +54,7 @@ function fetchContent(url, extractor, error) {
 };
 initApp();
 async function initApp(){
-    const APP_ID = 'D6BB7AB9-473E-1462-FF54-292662C3A500';
-    const API_KEY = 'E3BA72F7-CBF3-401C-8B0C-B352D52FE4E3';
+
 
     Backendless.serverURL = 'https://eu-api.backendless.com';
     await Backendless.initApp(APP_ID, API_KEY);
@@ -69,6 +71,7 @@ async function setCurrentUserIfLoggedOnServer() {
         if (await Backendless.UserService.isValidLogin()) {
             Backendless.UserService.getCurrentUser(true).then(()=>{
                 refreshHeader();
+                Backendless.UserService.currentUser['user-token'] = userTokenLs;
                 document.dispatchEvent(new Event('globalScriptLoaded'));
             });
         } else {

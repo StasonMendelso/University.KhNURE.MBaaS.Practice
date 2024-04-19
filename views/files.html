@@ -30,10 +30,20 @@
                         </div>
                         <div class="files__upload-file">
                             <input type="file" name="file-to-upload">
-                            <button class="upload-file__button button">Завантажити файл</button>
+                            <button class="upload-file__button button" disabled>Завантажити файл</button>
                         </div>
                     </div>
                 </div>
+
+                <dialog id="dirDialog">
+                    <form method="dialog" name="directoryAdd">
+                        <input type="text" name="directoryName">
+                        <div>
+                            <button id="cancel" type="reset" class="button">Cancel</button>
+                            <button type="submit" class="button submit__button">Confirm</button>
+                        </div>
+                    </form>
+                </dialog>
 
                 <script src = "../js/files.js"></script>
             </div>
