@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+    <meta charset = "UTF-8">
+    <title>Social network</title>
+    <link rel = "stylesheet" href = "../css/style.css">
+</head>
+<body>
+    <div class = "wrapper">
+        <header class = "header"></header>
+        <script src = "../js/header.js"></script>
+        <main class = "main">
+            <div class = "container" id = "files-content">
+
+                <div class="files__wrapper">
+                    <div class = "files__title">
+                        <h2>Файли</h2>
+                    </div>
+                    <div class="files__current__path">
+                        <span>/</span>
+                    </div>
+                    <div class = "files__rows">
+                        <div class="files__row back-directory__row">
+                            <span class="directory__name">. . .</span>
+                        </div>
+                    </div>
+                    <div class="directory__actions">
+                        <div class="files__add-directory">
+                            <button class="add-directory__button button">Створити директорію</button>
+                        </div>
+                        <div class="files__upload-file">
+                            <input type="file" name="file-to-upload">
+                            <button class="upload-file__button button">Завантажити файл</button>
+                        </div>
+                    </div>
+                </div>
+
+                <script src = "../js/files.js"></script>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

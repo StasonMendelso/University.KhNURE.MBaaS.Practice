@@ -109,7 +109,6 @@
 .button{
     padding: 5px;
     border-radius: 5px;
-    width: 100%;
     background-color: #e3e3e3;
 }
 button:disabled,
@@ -121,10 +120,11 @@ button[disabled]{
     cursor: not-allowed;
 }
 .submit__button{
+    width: 100%;
     transition-duration: 0.3s;
 }
-.submit__button:hover:enabled{
-    background-color: #b9b9b9;
+.button:hover:enabled{
+    background-color: #c9c8c8;
     transition-duration: 0.3s;
 }
 .successful__registration{
@@ -138,5 +138,95 @@ button[disabled]{
     display: none;
 }
 .successful__reset-password.active{
+    display: block;
+}
+
+
+.files__wrapper{
+    margin: 25px 0 0 0;
+    background-color: rgba(190, 184, 184, 0.8);
+    padding: 5px;
+    border-radius: 10px;
+}
+.files__current__path{
+    padding: 5px 5px 10px 5px;
+    width: 100%;
+    background-color: #e3e3e3;
+    margin: 10px 0 0 0;
+    border-bottom: 1px black solid;
+}
+
+.files__current__path span{
+    color: #0266cb;
+    font-weight: bold;
+}
+.files__rows {
+    margin: 0 0 10px 0;
+}
+
+.files__row {
+    display: flex;
+    flex-direction: row;
+    padding: 5px;
+    justify-content: space-between;
+    border-bottom: 1px black solid;
+    flex-wrap: wrap;
+}
+.files__row:hover{
+    box-shadow: 0 0 10px 1000px #c5c5e0 inset;
+}
+.files__row:nth-child(odd){
+    background-color: rgba(227, 227, 227, 0.8);
+}
+.files__row:nth-child(even){
+    background-color: rgba(206, 202, 202, 0.8);
+}
+
+
+.directory__row {
+}
+
+.file__name {
+    padding: 0 10px 0 0;
+    font-weight: bold;
+}
+.directory__name:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+.file__actions {
+
+}
+
+.file__action:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.file__action:first-child {
+    padding: 0 5px 0 0 ;
+}
+.file__action:last-child {
+    padding: 0 0 0 5px ;
+}
+
+.file__delete-button {
+}
+
+.file__row {
+}
+
+.file__download-button {
+}
+.directory__actions{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.back-directory__row{
+    display: none;
+}
+.back-directory__row.enabled{
     display: block;
 }

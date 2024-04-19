@@ -1,3 +1,4 @@
+const ROOT_DIRECTORY = "/web/users";
 function getElementFromBody(htmlPage, querySelector) {
     let el = document.createElement("body");
     el.innerHTML = htmlPage;
@@ -57,7 +58,6 @@ async function initApp(){
     await Backendless.initApp(APP_ID, API_KEY);
 
     await setCurrentUserIfLoggedOnServer()
-    refreshHeader();
 }
 
 
@@ -67,7 +67,10 @@ async function setCurrentUserIfLoggedOnServer() {
     let userTokenLs = JSON.parse(localStorage.getItem(key))[`user-token`];
     if (userTokenLs) {
         if (await Backendless.UserService.isValidLogin()) {
-            Backendless.UserService.currentUser = {"user-token": userTokenLs};
+            Backendless.UserService.getCurrentUser(true).then(()=>{
+                refreshHeader();
+                document.dispatchEvent(new Event('globalScriptLoaded'));
+            });
         } else {
             localStorage.removeItem(key);
         }

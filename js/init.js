@@ -24,6 +24,9 @@ routes = {
     '/profile': () => fetchContent('views/profile.html', function (data) {
         return getElementFromBody(data, '#profile-content');
     }),
+    '/files': () => fetchContent('views/files.html', function (data) {
+        return getElementFromBody(data, '#files-content');
+    }),
 };
 const SCRIPT_TAG_REGEX = /<script\b[^>]*>/;
 
