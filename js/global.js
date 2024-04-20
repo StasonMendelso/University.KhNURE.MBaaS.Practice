@@ -2,6 +2,7 @@ const ROOT_DIRECTORY = "/web/users";
 const APP_ID = 'D6BB7AB9-473E-1462-FF54-292662C3A500';
 const API_KEY = 'E3BA72F7-CBF3-401C-8B0C-B352D52FE4E3';
 const REST_API_KEY = `5F4C8D91-4877-4EDE-85D7-9E5D416FA99E`;
+const DOMAIN = `https://eu.backendlessappcontent.com`;
 function getElementFromBody(htmlPage, querySelector) {
     let el = document.createElement("body");
     el.innerHTML = htmlPage;

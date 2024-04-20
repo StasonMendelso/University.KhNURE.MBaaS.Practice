@@ -23,6 +23,14 @@ document.forms.register.addEventListener('submit', function(event) {
             Backendless.Files.createDirectory(`/web/users/${user.email}`)
                 .then(()=>{
                     console.log("personal directory for user was created");
+                    Backendless.Files.createDirectory(`/web/users/${user.email}/shared-with-me`)
+                        .then(()=>{
+                            console.log("shared-with-me directory for user was created");
+
+                        })
+                        .catch(err => {
+                            console.log(`error with creating shared-with-me directory for user ${err}`);
+                        });
                 })
                 .catch(err => {
                     console.log(`error with creating personal directory for user ${err}`);

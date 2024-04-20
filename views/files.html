@@ -35,14 +35,33 @@
                     </div>
                 </div>
 
-                <dialog id="dirDialog">
+                <dialog id="dirDialog" class="dialog add-dir-dialog">
                     <form method="dialog" name="directoryAdd">
                         <input type="text" name="directoryName">
-                        <div>
+                        <div class="dialog__buttons">
                             <button id="cancel" type="reset" class="button">Cancel</button>
                             <button type="submit" class="button submit__button">Confirm</button>
                         </div>
                     </form>
+                </dialog>
+
+                <dialog id="shareDialog" class="dialog share-file-dialog">
+                    <div>
+                        <span>Shared with:</span>
+                        <div class="emails-shared">
+                            <p>test@gmail.com</p>
+                        </div>
+                    </div>
+                    <form method="dialog" name="shareFile">
+                        <input type="text" name="sharedWithEmail">
+                        <div class="dialog__buttons">
+                            <button type="reset" class="button">Cancel</button>
+                            <button type="submit" class="button submit__button">Confirm</button>
+                        </div>
+                    </form>
+                    <div class="errors">
+
+                    </div>
                 </dialog>
 
                 <script src = "../js/files.js"></script>

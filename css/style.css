@@ -224,9 +224,34 @@ button[disabled]{
     justify-content: space-between;
     flex-wrap: wrap;
 }
+.directory__actions.disabled{
+    display: none;
+}
 .back-directory__row{
     display: none;
 }
 .back-directory__row.enabled{
+    display: block;
+}
+.dialog__buttons{
+    display: flex;
+    flex-direction: row;
+}
+.dialog input{
+    margin: 0 0 10px 0;
+}
+.dialog__buttons button:first-child{
+    margin: 0 5px 0 0;
+}
+.dialog__buttons button:last-child{
+    margin: 0 0 0 5px;
+}
+p{
+    margin: 5px 0;
+}
+.errors{
+    display: none;
+}
+.errors.active{
     display: block;
 }
