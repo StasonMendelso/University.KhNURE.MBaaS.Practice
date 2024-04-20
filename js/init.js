@@ -1,63 +1,57 @@
 routes = {
-    '/': () => fetchContent('views/init.html', function (data) {
-        return getElementFromBody(data, '#init-content');
-    }),
-    '/register': () => fetchContent('views/register.html', function (data) {
-        return getElementFromBody(data, '#register-content');
-    }),
-    '/login': () => fetchContent('views/login.html', function (data) {
-        return getElementFromBody(data, '#login-content');
-    }),
-    '/logout': () => {
-        Backendless.UserService.logout()
-            .then(() => {
-                refreshHeader();
-                historyPush("/login");
-            })
-            .catch();
-
-        return routes[`/login`]();
+    '/': {
+        authorize: false,
+        content: () => fetchContent('views/init.html', function (data) {
+            return getElementFromBody(data, '#init-content');
+        })
     },
-    '/reset': () => fetchContent('views/resetPassword.html', function (data) {
-        return getElementFromBody(data, '#reset-password-content');
-    }),
-    '/profile': () => fetchContent('views/profile.html', function (data) {
-        return getElementFromBody(data, '#profile-content');
-    }),
-    '/files': () => fetchContent('views/files.html', function (data) {
-        return getElementFromBody(data, '#files-content');
-    }),
+    '/register': {
+        authorize: false,
+        content: () => fetchContent('views/register.html', function (data) {
+            return getElementFromBody(data, '#register-content');
+        })
+    },
+    '/login': {
+        authorize: false,
+        content: () => fetchContent('views/login.html', function (data) {
+            return getElementFromBody(data, '#login-content');
+        })
+    },
+    '/logout': {
+        authorize: false,
+        content: () => {
+            Backendless.UserService.logout()
+                .then(() => {
+                    refreshHeader();
+                    historyPush("/login");
+                })
+                .catch();
+
+            return routes[`/login`].content();
+        }
+    },
+    '/reset': {
+        authorize: false,
+        content: () => fetchContent('views/resetPassword.html', function (data) {
+            return getElementFromBody(data, '#reset-password-content');
+        })
+    },
+    '/profile': {
+        authorize: true,
+        content: () => fetchContent('views/profile.html', function (data) {
+            return getElementFromBody(data, '#profile-content');
+        })
+    },
+    '/files': {
+        authorize: true,
+        content: () => fetchContent('views/files.html', function (data) {
+            return getElementFromBody(data, '#files-content');
+        })
+    },
 };
 const SCRIPT_TAG_REGEX = /<script\b[^>]*>/;
 
 const CONTENT_DIV = document.getElementById('content');
-setContentAndJsScripts(window.location.pathname);
-
-function getContentByRoute(path) {
-    let content = routes[path];
-    let htmlSpanElement = document.createElement("span");
-    htmlSpanElement.textContent = "Щось пішло не так, спробуйте пізніше :(";
-    if (!content) {
-        return htmlSpanElement;
-    }
-
-    return content() ?? htmlSpanElement;
-}
-
-let onNavItemClick = (pathName) => {
-    historyPush(pathName);
-    setContentAndJsScripts(pathName);
-}
-function historyPush(path) {
-    window.history.pushState(
-        {},
-        path,
-        window.location.origin + path
-    );
-}
-window.onpopstate = () => {
-    setContentAndJsScripts(window.location.pathname);
-}
 
 function setContentAndJsScripts(path) {
     let content = getContentByRoute(path);
@@ -77,4 +71,49 @@ function setContentAndJsScripts(path) {
         }
 
     }
+}
+
+setContentAndJsScripts(window.location.pathname);
+function onNavItemClick(pathName){
+    historyPush(pathName);
+    setContentAndJsScripts(pathName);
+}
+function getContentByRoute(path) {
+    let htmlSpanElement = document.createElement("span");
+    htmlSpanElement.textContent = "Щось пішло не так, спробуйте пізніше :(";
+    let route = routes[path];
+    if (!route){
+        return htmlSpanElement;
+    }
+    if (route.authorize && path !== "/login") {
+        if (!Backendless.UserService.currentUser){
+            onNavItemClick("/login");
+            return;
+        }
+        if (!Backendless.UserService.isValidLogin()){
+            onNavItemClick("/login");
+            return;
+        }
+    }
+    let content = route.content;
+
+    if (!content) {
+        return htmlSpanElement;
+    }
+
+    return content() ?? htmlSpanElement;
+}
+
+
+
+function historyPush(path) {
+    window.history.pushState(
+        {},
+        path,
+        window.location.origin + path
+    );
+}
+
+window.onpopstate = () => {
+    setContentAndJsScripts(window.location.pathname);
 }
