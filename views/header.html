@@ -22,7 +22,23 @@
                 <li class = "menu__item menu__files__item">
                     <a href = "/files" class = "menu__link" onclick="onNavItemClick('/files'); return false;">Файли</a>
                 </li>
+                <li class = "menu__item menu__places__item">
+                    <a class = "menu__link" data-submenu-name="places">Місця</a>
+                </li>
             </ul>
+            <div class = "submenu">
+                <ul class="places__submenu disabled">
+                   <li class = "submenu__item submenu__places__item">
+                       <a href = "/places" class = "menu__link" onclick="onNavItemClick('/places'); return false;">Всі місця</a>
+                   </li>
+                    <li class = "submenu__item submenu__places__item">
+                        <a href = "/places/saved" class = "menu__link" onclick="onNavItemClick('/places/saved'); return false;">Збережені</a>
+                    </li>
+                    <li class = "submenu__item submenu__places__item">
+                        <a href = "/places/add" class = "menu__link" onclick="onNavItemClick('/places/add'); return false;">Додати</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </header>
 </body>

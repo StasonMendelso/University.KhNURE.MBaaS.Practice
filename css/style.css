@@ -43,6 +43,7 @@
 
 .menu__link:hover{
     text-decoration: underline;
+    cursor: pointer;
 }
 .menu__log__item a:last-child{
     display: none;
@@ -66,6 +67,36 @@
 .menu__log__item ~.menu__files__item{
     display: none;
 }
+.places__submenu.active{
+    display: flex;
+}
+.places__submenu.disabled{
+    display: none;
+}
+.places__submenu{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    border-top: #666666 1px solid;
+}
+
+.submenu__item {
+    padding: 5px 10px;
+    text-align: center;
+}
+.submenu__item:first-child {
+    padding: 5px 10px 5px 0;
+}
+.submenu__item:last-child {
+    padding: 5px 0 5px 10px;
+}
+
+.submenu__link:hover{
+    text-decoration: underline;
+}
+
 .main {
     flex: 1 1 auto;
 }
