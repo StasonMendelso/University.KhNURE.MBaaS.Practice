@@ -1,19 +1,19 @@
 routes = {
     '/': {
         authorize: false,
-        content: () => fetchContent('views/init.html', function (data) {
+        content: () => fetchContent('/views/init.html', function (data) {
             return getElementFromBody(data, '#init-content');
         })
     },
     '/register': {
         authorize: false,
-        content: () => fetchContent('views/register.html', function (data) {
+        content: () => fetchContent('/views/register.html', function (data) {
             return getElementFromBody(data, '#register-content');
         })
     },
     '/login': {
         authorize: false,
-        content: () => fetchContent('views/login.html', function (data) {
+        content: () => fetchContent('/views/login.html', function (data) {
             return getElementFromBody(data, '#login-content');
         })
     },
@@ -32,19 +32,25 @@ routes = {
     },
     '/reset': {
         authorize: false,
-        content: () => fetchContent('views/resetPassword.html', function (data) {
+        content: () => fetchContent('/views/resetPassword.html', function (data) {
             return getElementFromBody(data, '#reset-password-content');
         })
     },
     '/profile': {
         authorize: true,
-        content: () => fetchContent('views/profile.html', function (data) {
+        content: () => fetchContent('/views/profile.html', function (data) {
             return getElementFromBody(data, '#profile-content');
+        })
+    },
+    '/profile/edit': {
+        authorize: true,
+        content: () => fetchContent('/views/profile_edit.html', function (data) {
+            return getElementFromBody(data, '#profile-edit-content');
         })
     },
     '/files': {
         authorize: true,
-        content: () => fetchContent('views/files.html', function (data) {
+        content: () => fetchContent('/views/files.html', function (data) {
             return getElementFromBody(data, '#files-content');
         })
     },
@@ -86,14 +92,14 @@ function getContentByRoute(path) {
         return htmlSpanElement;
     }
     if (route.authorize && path !== "/login") {
-        if (!Backendless.UserService.currentUser){
-            onNavItemClick("/login");
-            return;
-        }
-        if (!Backendless.UserService.isValidLogin()){
-            onNavItemClick("/login");
-            return;
-        }
+        // if (!Backendless.UserService.currentUser){
+        //     onNavItemClick("/login");
+        //     return;
+        // }
+        // if (!Backendless.UserService.isValidLogin()){
+        //     onNavItemClick("/login");
+        //     return;
+        // }
     }
     let content = route.content;
 

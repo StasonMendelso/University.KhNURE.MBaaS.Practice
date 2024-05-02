@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+    <meta charset = "UTF-8">
+    <title>Social network</title>
+    <link rel = "stylesheet" href = "../css/style.css">
+</head>
+<body>
+    <div class = "wrapper">
+        <header class = "header"></header>
+        <script src="../js/header.js"></script>
+        <main class="main">
+            <div class="container" id="profile-edit-content">
+                <div class="profile__wrapper">
+                    <form name="profileEdit">
+                        <div class="profile__information-row">
+                            <span class="information-row__name">Ім'я користувача:</span>
+                            <input id="username" type="text" name="username" class="input__field information-row__value" data-field-name = "username"></input>
+                        </div>
+                        <div class="profile__information-row">
+                            <span class="information-row__name">Вік:</span>
+                            <input  id="age" type="number" name="age" class="input__field information-row__value" data-field-name = "age"/>
+                        </div>
+                        <div class="profile__information-row">
+                            <span class="information-row__value" data-field-name = "country"></span>
+                            <label for="country" class="input__label">Країна:</label>
+                            <input id="country" type="text" name="country" class="input__field information-row__value" data-field-name = "country">
+                        </div>
+                        <div class="profile__information-row">
+                            <label for="sex" class="information-row__name">Стать:</label>
+                            <select id="sex" name="sex" class="input__field information-row__value" data-field-name = "sex">
+                                <option value="Жінка">Жінка</option>
+                                <option value="Чоловік">Чоловік</option>
+                            </select>
+                        </div>
+                        <button type="submit"  class="button submit__button">Зберегти</button>
+                        <div class="errors__profile-editing">
+
+                        </div>
+                    </form>
+                </div>
+                <script src="../js/profile_edit.js"></script>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
