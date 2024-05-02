@@ -7,10 +7,18 @@ Backendless.UserService.getCurrentUser(true)
         Backendless.UserService.currentUser = user;
         let profileWrapper = document.querySelector(".profile__wrapper");
         let informationRowValueSpans = profileWrapper.querySelectorAll(".information-row__value");
-        informationRowValueSpans.forEach(valueSpan => {
-            let userProperty = user[valueSpan.dataset['fieldName']];
-            if (userProperty) {
-                valueSpan.innerText = userProperty;
+        informationRowValueSpans.forEach(element => {
+            let userProperty = user[element.dataset['fieldName']];
+
+            if (userProperty && element.tagName.toLowerCase() === "span") {
+                element.innerText = userProperty;
+            }
+            if (userProperty && element.tagName.toLowerCase() === "input") {
+                if (element.type === "checkbox") {
+                    element.checked = userProperty;
+                } else {
+                    element.value = userProperty;
+                }
             }
         });
     })
@@ -19,15 +27,15 @@ Backendless.UserService.getCurrentUser(true)
     });
 
 getAvatar();
-function getAvatar(){
+
+function getAvatar() {
     let key = "Backendless_D6BB7AB9-473E-1462-FF54-292662C3A500";
     let userTokenLs = JSON.parse(localStorage.getItem(key))[`user-token`];
     let user = new Backendless.User();
     user['user-token'] = userTokenLs;
     Backendless.UserService.currentUser = user;
     Backendless.UserService.getCurrentUser(true)
-        .then(user =>{
-            console.log(user);
+        .then(user => {
             var headers = new Headers();
             headers.append('user-token', user['user-token']);
 
@@ -54,3 +62,11 @@ function getAvatar(){
         });
 
 }
+
+document.querySelector("input[data-field-name='track_geolocation']").addEventListener("change",event => {
+    let user = Backendless.UserService.currentUser;
+    user['track_geolocation'] = event.target.checked;
+    Backendless.UserService.update(user)
+        .then(data => console.log("user has updated track_geolocation = " + event.target.checked))
+        .catch(console.log);
+});
