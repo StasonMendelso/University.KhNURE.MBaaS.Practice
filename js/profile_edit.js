@@ -10,7 +10,7 @@ Backendless.UserService.getCurrentUser(true)
         informationRowValueInput.forEach(valueInput => {
             let userProperty = user[valueInput.dataset['fieldName']];
             console.log(userProperty)
-            if (userProperty ) {
+            if (userProperty) {
                 valueInput.value = userProperty;
             }
         });
@@ -19,13 +19,15 @@ Backendless.UserService.getCurrentUser(true)
         console.error(error)
     });
 
-document.forms.profileEdit.addEventListener('submit', function(event) {
+document.forms.profileEdit.addEventListener('submit', function (event) {
     if (event.target === document.forms.profileEdit) {
         event.preventDefault();
         let profileEditForm = event.target;
         let errorsDiv = profileEditForm.querySelector(".errors__profile-editing");
         errorsDiv.classList.remove("active");
-        errorsDiv.childNodes.forEach(node=> {node.remove()});
+        errorsDiv.childNodes.forEach(node => {
+            node.remove()
+        });
 
         let submitButton = profileEditForm.querySelector(".submit__button");
         submitButton.disabled = true;
@@ -43,7 +45,9 @@ document.forms.profileEdit.addEventListener('submit', function(event) {
         }
 
         function gotError(err) {
-            errorsDiv.childNodes.forEach(node=> {node.remove()});
+            errorsDiv.childNodes.forEach(node => {
+                node.remove()
+            });
             console.error("Error during updating:", err);
             let spanElement = document.createElement("span");
             spanElement.innerText = err;
@@ -55,5 +59,42 @@ document.forms.profileEdit.addEventListener('submit', function(event) {
         Backendless.UserService.update(user)
             .then(userUpdated)
             .catch(gotError);
+    }
+});
+
+
+var fileInput = document.querySelector("input[name='file-to-upload']");
+
+fileInput.addEventListener("input", event => {
+    const files = fileInput.files;
+    if (files.length > 0) {
+        document.querySelector(".upload-file__button").removeAttribute("disabled");
+    } else {
+        document.querySelector(".upload-file__button").setAttribute("disabled", "");
+    }
+});
+document.querySelector(".upload-file__button").addEventListener("click", event => {
+    const files = fileInput.files;
+    if (files.length > 0) {
+        document.querySelector(".upload-file__button").setAttribute("disabled", "");
+
+        Backendless.Files.upload(files[0], ROOT_DIRECTORY + "/" + Backendless.UserService.currentUser.email + "/" + "avatar." + files[0].name.split(".")[1], true)
+            .then(function (fileReference) {
+                fileInput.value = "";
+                var file = {
+                    fileReference: fileReference.fileURL.replace("%40", "@"),
+                }
+                let user = Backendless.UserService.currentUser;
+                user["avatar"] = file.fileReference;
+                Backendless.UserService.update(user)
+                    .then(data => {
+                        console.log("user was updated by avatar field");
+                    });
+            })
+            .catch(function (error) {
+                document.querySelector(".upload-file__button").removeAttribute("disabled");
+            });
+    } else {
+        document.querySelector(".upload-file__button").removeAttribute("disabled");
     }
 });

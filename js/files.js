@@ -105,6 +105,9 @@ function render(filesAndDirectoryArray) {
             }
             divElement.querySelector(".directory__name").innerText = element.name;
         } else {
+            if(element.name.split("\.")[0] === "avatar"){
+                return;
+            }
             divElement.innerHTML = fileRowHtml;
             divElement = divElement.firstChild;
             divElement.querySelector(".file__name").innerText = element.name;
@@ -178,7 +181,7 @@ function render(filesAndDirectoryArray) {
                 });
 
 
-        }));
+            }));
     document.querySelectorAll(".file__delete-button")
         .forEach(element => element.addEventListener("dblclick", event => {
             let name = element.parentNode.parentNode.querySelector(".file__name").innerText;

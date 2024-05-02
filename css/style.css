@@ -255,3 +255,13 @@ p{
 .errors.active{
     display: block;
 }
+.profile__avatar{
+    height: 150px;
+    width: 150px;
+}
+
+.profile__avatar img{
+    height: 100%;
+    width: 100%;
+    object-fit: fill;
+}
