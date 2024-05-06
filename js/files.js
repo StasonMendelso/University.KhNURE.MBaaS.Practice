@@ -24,7 +24,7 @@ function loadFiles(path) {
                     .map(element => element.fileId[0].fileReference)
                     .map(fileReference => {
                         return {
-                            name: fileReference.split('/files' + ROOT_DIRECTORY)[1].replace('%40', '@'),
+                            name: fileReference.split('/files' + ROOT_USERS_DIRECTORY)[1].replace('%40', '@'),
                             publicUrl: fileReference,
                             size: 1,
                         };
@@ -36,7 +36,7 @@ function loadFiles(path) {
             .catch(console.log);
 
     } else {
-        Backendless.Files.listing(ROOT_DIRECTORY + path)
+        Backendless.Files.listing(ROOT_USERS_DIRECTORY + path)
             .then(render)
             .catch(function (error) {
                 console.log(error);
@@ -188,7 +188,7 @@ function render(filesAndDirectoryArray) {
             let publicUrl = element.parentNode.parentNode.querySelector(".file__name").getAttribute("data-file-public-url").split('/files')[1];
             let currentPath = document.querySelector(".files__current__path span").innerText;
 
-            Backendless.Files.remove(ROOT_DIRECTORY + currentPath + "/" + name)
+            Backendless.Files.remove(ROOT_USERS_DIRECTORY + currentPath + "/" + name)
                 .then(data => {
                     var queryBuilder = Backendless.DataQueryBuilder.create();
                     queryBuilder.setWhereClause(`fileReference LIKE '%${publicUrl}'`);
@@ -302,7 +302,7 @@ document.querySelector(".add-directory__button").addEventListener("click", (even
         if (value) {
             let currentPath = document.querySelector(".files__current__path span").innerText;
 
-            Backendless.Files.createDirectory(ROOT_DIRECTORY + currentPath + "/" + value)
+            Backendless.Files.createDirectory(ROOT_USERS_DIRECTORY + currentPath + "/" + value)
                 .then(data => {
                     loadFiles(currentPath)
                 })
@@ -337,7 +337,7 @@ document.querySelector(".upload-file__button").addEventListener("click", event =
     if (files.length > 0) {
         document.querySelector(".upload-file__button").setAttribute("disabled", "");
         let currentPath = document.querySelector(".files__current__path span").innerText;
-        Backendless.Files.upload(files[0], ROOT_DIRECTORY + currentPath + "/" + files[0].name, true)
+        Backendless.Files.upload(files[0], ROOT_USERS_DIRECTORY + currentPath + "/" + files[0].name, true)
             .then(function (fileReference) {
                 fileInput.value = "";
                 var file = {

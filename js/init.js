@@ -60,7 +60,7 @@ routes = {
             return getElementFromBody(data, '#places-find-content');
         })
     },
-    '/places/show': {
+    '/places-show': {
         authorize: true,
         content: () => fetchContent('/views/places/place.html', function (data) {
             return getElementFromBody(data, '#place-content');

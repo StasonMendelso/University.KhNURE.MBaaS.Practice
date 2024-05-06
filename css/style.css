@@ -356,7 +356,8 @@ p{
     grid-template-columns: 25% 1fr;
     grid-template-rows: 1fr;
     grid-column-gap: 10px;
-    height: 200px;
+    min-height: 200px;
+    max-height: 400px;
     border: #c5c5e0 1px solid;
 }
 
@@ -401,6 +402,8 @@ p{
 }
 
 .place__name {
+    color: #0266cb;
+    text-decoration: underline;
 }
 
 .place__category {
@@ -410,6 +413,13 @@ p{
 }
 
 .place__hashtag {
+    margin: 0  2px;
+}
+.place__hashtag:first-child{
+    margin: 0 2px 0 0;
+}
+.place__hashtag:last-child{
+    margin: 0 0 0 2px;
 }
 
 .place__actions {

@@ -1,20 +1,20 @@
-
 initFindForm();
-function initFindForm(){
+
+function initFindForm() {
     var findForm = document.forms['find-places'];
 
     const queryBuilder = Backendless.DataQueryBuilder.create();
     queryBuilder.addProperties('category');
     Backendless.Data.of("Places").find(queryBuilder)
-        .then(data=>{
-            if (!data || data.length === 0){
+        .then(data => {
+            if (!data || data.length === 0) {
                 return;
             }
             for (const category of data) {
                 var newOption = document.createElement('option');
 
                 newOption.value = category['category'];
-                newOption.text =  category['category'];
+                newOption.text = category['category'];
                 findForm['category'].appendChild(newOption);
             }
         })
@@ -51,3 +51,15 @@ function initFindForm(){
     }
 
 }
+
+var placeList = document.querySelector(".places__list");
+var queryBuilder = Backendless.DataQueryBuilder.create();
+queryBuilder.addAllProperties();
+queryBuilder.addProperty("authorId.objectId as authorId");
+queryBuilder.setRelated(["savedBy", "hashtags", "likedBy"]);
+
+Backendless.Data.of("Places").find(queryBuilder)
+    .then(renderList)
+    .catch(alert);
+
+

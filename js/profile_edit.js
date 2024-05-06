@@ -78,7 +78,7 @@ document.querySelector(".upload-file__button").addEventListener("click", event =
     if (files.length > 0) {
         document.querySelector(".upload-file__button").setAttribute("disabled", "");
 
-        Backendless.Files.upload(files[0], ROOT_DIRECTORY + "/" + Backendless.UserService.currentUser.email + "/" + "avatar." + files[0].name.split(".")[1], true)
+        Backendless.Files.upload(files[0], ROOT_USERS_DIRECTORY + "/" + Backendless.UserService.currentUser.email + "/" + "avatar." + files[0].name.split(".")[1], true)
             .then(function (fileReference) {
                 fileInput.value = "";
                 var file = {
