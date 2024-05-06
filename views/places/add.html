@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+    <meta charset = "UTF-8">
+    <title>Social network</title>
+    <link rel = "stylesheet" href = "../../css/style.css">
+    <script src="//api.backendless.com/sdk/js/latest/backendless.min.js"></script>
+    <script src="../../js/init.js"></script>
+</head>
+<body>
+    <div class = "wrapper">
+        <header class = "header"></header>
+        <script src="../../js/header.js"></script>
+        <main class="main">
+            <div class="container" id="places-add-content">
+                <div class="form__wrapper">
+                    <div class="form__header">Додати нове місце</div>
+                    <form method="post" class="form" name="add-place" action="/must-not-go-here">
+                        <div class="input__wrapper">
+                            <div class="input__group">
+                                <label for="name" class="input__label">Назва</label>
+                                <input id="name" type="text" name="name" class="input__field">
+                            </div>
+                            <div class="input__group-wrapper">
+                                <div class="group-wrapper__header">
+                                    <span>Координати</span>
+                                </div>
+                                <div class="input__group">
+                                    <label for="longitude" class="input__label">Довжина</label>
+                                    <input id="longitude" type="text" name="longitude" class="input__field">
+                                </div>
+                                <div class="input__group">
+                                    <label for="latitude" class="input__label">Широта</label>
+                                    <input id="latitude" type="text" name="latitude" class="input__field">
+                                </div>
+                            </div>
+                            <div class="input__group">
+                                <label for="description" class="input__label">Опис</label>
+                                <textarea id="description" name="description" class="textarea__field"></textarea>
+                            </div>
+                            <div class="input__group-wrapper">
+                                <div class="group-wrapper__header">
+                                    <span>Хештеги</span>
+                                    <button type="button" class="button hashtag-add__button">Додати</button>
+                                </div>
+                                <div class="hashtag__group">
+                                    <div class="hashtag__input__group">
+                                        <span>#</span>
+                                        <input id="hashtag" type="text" name="hashtag" class="input__field hashtag__input__field">
+                                        <button type="button" class="button hashtag-delete__button">Видалити</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="input__group">
+                                <label for="image" class="input__label">Зображення</label>
+                                <input id="image" type="file" name="image" class="input__field">
+                            </div>
+                            <div class="input__group">
+                                <label for="category" class="input__label">Категорія</label>
+                                <input id="category" type="text" name="category" list="categories" class="input__field">
+                                <datalist id="categories">
+                                    <option value="Blida">
+                                    <option value="OuledSlama">
+                                </datalist>
+                            </div>
+                        </div>
+                        <button type="submit" class="button submit__button">Додати місце</button>
+                        <div class="errors__place-adding">
+
+                        </div>
+                    </form>
+                </div>
+                <script src="../js/register.js"></script>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

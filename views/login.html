@@ -4,34 +4,36 @@
     <meta charset = "UTF-8">
     <title>Social network</title>
     <link rel = "stylesheet" href = "../css/style.css">
-    <script src="//api.backendless.com/sdk/js/latest/backendless.min.js"></script>
-    <script src="../js/init.js"></script>
+    <script src = "//api.backendless.com/sdk/js/latest/backendless.min.js"></script>
+    <script src = "../js/init.js"></script>
 </head>
 <body>
     <div class = "wrapper">
         <header class = "header"></header>
-        <script src="../js/header.js"></script>
-        <main class="main">
-            <div class="container" id="login-content">
-                <div class="form__wrapper">
-                    <div class="form__header">Форма входу</div>
-                    <form method="post" class="form" name="login" action="/must-not-go-here">
-                        <div class="input__group">
-                            <label for="email" class="input__label">Електронна пошта</label>
-                            <input id="email" type="text" name="email" class="input__field">
+        <script src = "../js/header.js"></script>
+        <main class = "main">
+            <div class = "container" id = "login-content">
+                <div class = "form__wrapper">
+                    <div class = "form__header">Форма входу</div>
+                    <form method = "post" class = "form" name = "login" action = "/must-not-go-here">
+                        <div class = "input__wrapper">
+                            <div class = "input__group">
+                                <label for = "email" class = "input__label">Електронна пошта</label>
+                                <input id = "email" type = "text" name = "email" class = "input__field">
+                            </div>
+                            <div class = "input__group">
+                                <label for = "password" class = "input__label">Пароль</label>
+                                <input id = "password" type = "password" name = "password" class = "input__field">
+                                <a href = "#" onclick = "onNavItemClick('/reset'); return false;">Забули пароль?</a>
+                            </div>
                         </div>
-                        <div class="input__group">
-                            <label for="password" class="input__label">Пароль</label>
-                            <input id="password" type="password" name="password" class="input__field">
-                            <a href="#" onclick="onNavItemClick('/reset'); return false;">Забули пароль?</a>
-                        </div>
-                        <button type="submit" class="button submit__button">Увійти</button>
-                        <div class="errors__login">
+                        <button type = "submit" class = "button submit__button">Увійти</button>
+                        <div class = "errors__login">
 
                         </div>
                     </form>
                 </div>
-                <script src="../js/login.js"></script>
+                <script src = "../js/login.js"></script>
             </div>
         </main>
     </div>
