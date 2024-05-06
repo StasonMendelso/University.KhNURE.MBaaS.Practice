@@ -66,6 +66,12 @@ routes = {
             return getElementFromBody(data, '#place-content');
         })
     },
+    '/places-add': {
+        authorize: true,
+        content: () => fetchContent('/views/places/add.html', function (data) {
+            return getElementFromBody(data, '#places-add-content');
+        })
+    },
 };
 const SCRIPT_TAG_REGEX = /<script\b[^>]*>/;
 

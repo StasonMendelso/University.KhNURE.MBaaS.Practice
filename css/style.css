@@ -315,6 +315,7 @@ p{
 .hashtag__input__group{
     display: flex;
     flex-direction: row;
+    margin: 5px 0;
 }
 .hashtag__input__field{
     width: 100%;
