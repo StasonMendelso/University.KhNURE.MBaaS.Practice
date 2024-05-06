@@ -54,6 +54,12 @@ routes = {
             return getElementFromBody(data, '#files-content');
         })
     },
+    '/places/show': {
+        authorize: true,
+        content: () => fetchContent('/views/places/place.html', function (data) {
+            return getElementFromBody(data, '#place-content');
+        })
+    },
 };
 const SCRIPT_TAG_REGEX = /<script\b[^>]*>/;
 

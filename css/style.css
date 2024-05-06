@@ -59,11 +59,13 @@
     display: block;
 }
 .menu__log__item.logged ~.menu__profile__item,
+.menu__log__item.logged ~.menu__places__item,
 .menu__log__item.logged ~.menu__files__item{
     display: block;
 }
 
 .menu__log__item ~.menu__profile__item,
+.menu__log__item ~.menu__places__item,
 .menu__log__item ~.menu__files__item{
     display: none;
 }
@@ -438,4 +440,34 @@ p{
 }
 .place__distance{
     display: none;
+}
+
+.place__item {
+    margin: 10px 0;
+    background-color: whitesmoke;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 40% 1fr;
+    grid-template-rows: 1fr;
+    grid-column-gap: 10px;
+    height: 500px;
+    border: #c5c5e0 1px solid;
+}
+
+.place__item-image {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    border: black 1px solid;
+}
+.place__item-image img{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    object-fit: cover;
+}
+.google__map{
+    height: 600px;
+    width: 100%;
+    margin: 0 0 10px 0;
 }
