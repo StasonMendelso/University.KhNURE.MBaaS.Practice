@@ -54,6 +54,12 @@ routes = {
             return getElementFromBody(data, '#files-content');
         })
     },
+    '/places': {
+        authorize: true,
+        content: () => fetchContent('/views/places/places.html', function (data) {
+            return getElementFromBody(data, '#places-find-content');
+        })
+    },
     '/places/show': {
         authorize: true,
         content: () => fetchContent('/views/places/place.html', function (data) {
