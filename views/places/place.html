@@ -6,9 +6,6 @@
     <link rel = "stylesheet" href = "../../css/style.css">
     <script src = "//api.backendless.com/sdk/js/latest/backendless.min.js"></script>
     <script src = "../../js/init.js"></script>
-    <script async
-            src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBBRX3pVXWVpmxtAgmTV-X2wF6I3X3dtwc&loading=async&callback=initMap">
-    </script>
 </head>
 <body>
     <div class = "wrapper">
@@ -16,11 +13,11 @@
         <script src = "../../js/header.js"></script>
         <main class = "main">
             <div class = "container" id = "place-content">
-                <div class = "place__item" data-place-id>
+                <div class = "place__item" >
                     <div class = "place__item-image">
                         <img src = "/assets/img/place_image_not_found.jpg" data-field-name="image">
                     </div>
-                    <div class = "place__information">
+                    <div class = "place__information" data-place-id="some">
                         <div class = "place__header">
                             <div class = "place__main-info">
                                 <div class = "place__main-info-left">
