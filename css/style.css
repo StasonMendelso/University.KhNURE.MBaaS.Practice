@@ -483,3 +483,9 @@ p{
     margin: 0 0 10px 0;
     border: black 1px solid;
 }
+.errors__place-adding{
+    display: none;
+}
+.errors__place-adding.active{
+    display: block;
+}

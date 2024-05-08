@@ -13,22 +13,129 @@ document.querySelector(".hashtag-add__button").addEventListener("click", event =
     hashtagInputGroup.appendChild(tempContainer.firstElementChild);
 });
 
-const queryBuilder = Backendless.DataQueryBuilder.create()
+var queryBuilder = Backendless.DataQueryBuilder.create()
 queryBuilder.setProperties(['category']);
 Backendless.Data.of("Places").find(queryBuilder)
-    .then(categories =>{
+    .then(categories => {
         var categoryDatalist = document.querySelector("#categories");
+        let categoriesSet = new Set();
         for (const category of categories) {
-            var option = document.createElement("option");
-            option.value = category;
-            categoryDatalist.appendChild(option);
+            categoriesSet.add(category.category);
         }
+        categoriesSet.forEach(element => {
+            var option = document.createElement("option");
+            option.value = element;
+            categoryDatalist.appendChild(option);
+        })
     })
     .catch(alert);
 
 var addForm = document.forms['add-place'];
 
-addForm.addEventListener('submit', event=>{
+addForm.addEventListener('submit', event => {
     event.preventDefault();
     console.log(addForm.elements);
+
+    let errorsDiv = addForm.querySelector(".errors__place-adding");
+    errorsDiv.classList.remove("active");
+    errorsDiv.childNodes.forEach(node => {
+        node.remove()
+    });
+
+    let submitButton = addForm.querySelector(".submit__button");
+    submitButton.disabled = true;
+
+    var coordinates = new Backendless.Data.Point();
+    coordinates.setLongitude(parseFloat(addForm['longitude'].value));
+    coordinates.setLatitude(parseFloat(addForm['latitude'].value));
+    var place = {
+        name: addForm['name'].value,
+        coordinates: coordinates,
+        description: addForm['description'].value,
+        category: addForm['category'].value,
+    }
+
+
+    Backendless.Data.of("Places").save(place)
+        .then(place => {
+            let promises = [];
+            Backendless.Data.of("Places").setRelation({objectId: place.objectId}, "authorId", [{objectId: Backendless.UserService.currentUser.objectId}])
+                .then(data=>{
+                    if (addForm['hashtag'] instanceof NodeList) {
+                        for (let aHashtag of addForm['hashtag']) {
+                            addHashtag(aHashtag.value, promises, place);
+                        }
+                    } else if (addForm['hashtag'] instanceof Object) {
+                        addHashtag(addForm['hashtag'].value, promises, place);
+                    }
+                    Promise.all(promises)
+                        .then(data=>{
+                            if (addForm['image'].files.length > 0) {
+                                let files = addForm['image'].files;
+                                let name = place['name'];
+                                var file = files[0];
+                                file = new File([file], name, {
+                                    type: file.type,
+                                    lastModified: file.lastModified,
+                                });
+                                Backendless.Files.upload(file, ROOT_PLACES_DIRECTORY, false)
+                                    .then(function (fileReference) {
+                                        console.log(fileReference);
+                                        console.log("setting relation file");
+                                        Backendless.Data.of("Places").save({objectId: place['objectId'], imageLink: fileReference.fileURL})
+                                            .then(data=>{
+                                                console.log(data);
+                                               placeAdded(place);
+                                            })
+                                            .catch(function (error) {
+                                                console.log("error during adding imageLink to table - " + error.message);
+                                            });
+                                    })
+                                    .catch(function (error) {
+                                        console.log("error during uploading a file - " + error.message);
+                                    });
+                            }else{
+                                placeAdded(place);
+                            }
+                        })
+                });
+        })
+        .catch(gotError);
+
+    function placeAdded(place) {
+        console.log("added");
+        console.log(place);
+        window.location.href = `/places-show?objectId=${place.objectId}`;
+    }
+
+    function gotError(err) {
+        let spanElement = document.createElement("span");
+        spanElement.innerText = err;
+        errorsDiv.appendChild(spanElement);
+        errorsDiv.classList.add("active");
+        submitButton.disabled = false;
+    }
+
+    function addHashtag(hashtag, promises, place) {
+        console.log(hashtag);
+        let queryBuilder =Backendless.DataQueryBuilder.create();
+        queryBuilder.setWhereClause(`name = '${hashtag}'`);
+        promises.push(Backendless.Data.of("Hashtags").find(queryBuilder)
+            .then(data => {
+                if (data.length === 0) {
+                    promises.push(Backendless.Data.of("Hashtags").save({name: hashtag})
+                        .then(data => {
+                            Backendless.Data.of("Places").addRelation({objectId: place['objectId']}, "hashtags", [{objectId: data.objectId}]);
+                        })
+                        .catch(error=>{
+                            console.log("error during saving new hashtag")
+                        }));
+                } else {
+                    Backendless.Data.of("Places").addRelation({objectId: place['objectId']}, "hashtags", [{objectId: data[0].objectId}]);
+                }
+            })
+            .catch(error=>{
+                console.log("error during finding hashtag")
+            }));
+    }
 })

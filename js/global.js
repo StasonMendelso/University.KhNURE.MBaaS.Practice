@@ -279,10 +279,14 @@ function renderPlaceItem(element, place) {
             alert("You can't delete!");
             return;
         }
-        window.location.reload();
         Backendless.Data.of("Places").remove(placeObjectId)
             .then(data => {
-                window.location.reload();
+                if (window.location.pathname === "/places-show") {
+                    alert("Місце було видалено");
+                    window.location.pathname = "/places";
+                } else {
+                    window.location.reload();
+                }
             })
             .catch(alert);
 
@@ -294,7 +298,7 @@ function renderPlaceItem(element, place) {
         }
     });
     //image
-    if (place['imageLink']){
+    if (place['imageLink']) {
         var headers = new Headers();
         headers.append('user-token', Backendless.UserService.currentUser['user-token']);
 

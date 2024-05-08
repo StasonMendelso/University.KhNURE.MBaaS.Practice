@@ -4,19 +4,19 @@ var queryBuilder = Backendless.DataQueryBuilder.create();
 queryBuilder.addAllProperties();
 queryBuilder.addProperty("authorId.objectId as authorId");
 queryBuilder.setRelated(["savedBy", "hashtags", "likedBy"]);
+Backendless.UserService.getCurrentUser();
 var coordinates;
-
 if (placeObjectId) {
     Backendless.Data.of("Places").findById(placeObjectId, queryBuilder)
         .then(place => {
             if (!place) {
                 alert("Nothing was found for passed objectId. Check the value of objectId!");
+                document.querySelector("#content").innerHTML = "";
                 return;
             }
             coordinates = place['coordinates'];
             var element = document.querySelector(".place__item");
             renderPlaceItem(element,place);
-
             //google map
             (g => {
                 var h, a, k, p = "The Google Maps JavaScript API", c = "google", l = "importLibrary", q = "__ib__", m = document,
@@ -55,11 +55,15 @@ if (placeObjectId) {
                 const marker = new AdvancedMarkerElement({
                     map: map,
                     position: position,
-                    title: "Uluru",
+                    title: place.name,
                 });
             }
             initMap();
         })
+        .catch(error=>{
+            console.error(error);
+            document.querySelector("#content").innerHTML = "<span>Нічого не знайдено за вказаним ідентифікатором.</span>";
+        });
 
 } else {
     alert("Pass objectId for getting info about certain place in query param!");
