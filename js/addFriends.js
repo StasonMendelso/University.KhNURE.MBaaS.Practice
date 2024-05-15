@@ -11,7 +11,7 @@ Backendless.UserService.getCurrentUser()
                 let users = data;
                 for (let user of users) {
                     console.log(user);
-                    if (user.objectId === currentUser.objectId){
+                    if (user.objectId === currentUser.objectId) {
                         continue;
                     }
                     addUser(user, currentUser);
@@ -36,12 +36,22 @@ function addUser(user, currentUser) {
     div.querySelector(".user-username").innerText = user.username;
     var element = div.querySelector("[data-field-id]");
     element.setAttribute('data-field-id', user.objectId);
-    for (let friendInvitation of user['friends_invitations']){
-        if (currentUser.objectId === friendInvitation.objectId){
-            element.setAttribute('disabled',null);
+    for (let friendInvitation of user['friends_invitations']) {
+        if (currentUser.objectId === friendInvitation.objectId) {
+            element.setAttribute('disabled', null);
             element.innerText = 'На розгляді';
         }
     }
+
+    var addButton = div.querySelector(".friend__add__button");
+    addButton.addEventListener('click', event => {
+        Backendless.Data.of("Users").addRelation({objectId: user.objectId}, 'friends_invitations', [{objectId: currentUser.objectId}])
+            .then(data => {
+                addButton.setAttribute('disabled', null);
+                addButton.innerText = 'На розгляді';
+            })
+            .catch(alert);
+    });
 
     addFriendsList.appendChild(div.firstChild);
 }
