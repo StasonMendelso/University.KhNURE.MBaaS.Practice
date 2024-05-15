@@ -81,7 +81,13 @@ routes = {
     '/friends': {
         authorize: true,
         content: () => fetchContent('/views/friends/myFriends.html', function (data) {
-            return getElementFromBody(data, '#myFriends-find-content');
+            return getElementFromBody(data, '#myFriends-content');
+        })
+    },
+    '/friends-add': {
+        authorize: true,
+        content: () => fetchContent('/views/friends/addFriend.html', function (data) {
+            return getElementFromBody(data, '#addFriend-content');
         })
     },
 };

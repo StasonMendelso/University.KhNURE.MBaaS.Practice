@@ -533,3 +533,30 @@ p{
 
 .friend__delete__button {
 }
+
+
+.myFriends__list {
+    display: flex;
+    flex-direction: column;
+}
+
+.user {
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    background-color: whitesmoke;
+}
+
+.user__info {
+    flex: 1 0 auto;
+    align-content: center;
+}
+
+.user__actions {
+}
+
+.button {
+}
+
+.friend__add__button {
+}
