@@ -83,6 +83,20 @@
     justify-content: space-between;
     border-top: #666666 1px solid;
 }
+.friends__submenu.active{
+    display: flex;
+}
+.friends__submenu.disabled{
+    display: none;
+}
+.friends__submenu{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    border-top: #666666 1px solid;
+}
 
 .submenu__item {
     padding: 5px 10px;

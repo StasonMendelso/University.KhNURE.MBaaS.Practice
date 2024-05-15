@@ -18,6 +18,7 @@ function refreshHeader() {
 }
 
 var placesSubmenu = document.querySelector(".places__submenu");
+var friendsSubmenu = document.querySelector(".friends__submenu");
 document.addEventListener("click", event => {
     if (event.target.getAttribute("data-submenu-name") === "places") {
         placesSubmenu.classList.add("active");
@@ -25,6 +26,13 @@ document.addEventListener("click", event => {
     } else if (!event.target.closest("header")) {
         placesSubmenu.classList.add("disabled");
         placesSubmenu.classList.remove("active");
+    }
+    if (event.target.getAttribute("data-submenu-name") === "friends") {
+        friendsSubmenu.classList.add("active");
+        friendsSubmenu.classList.remove("disabled");
+    } else if (!event.target.closest("header")) {
+        friendsSubmenu.classList.add("disabled");
+        friendsSubmenu.classList.remove("active");
     }
 });
 

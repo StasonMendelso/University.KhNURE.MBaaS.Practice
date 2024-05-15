@@ -25,6 +25,9 @@
                 <li class = "menu__item menu__places__item">
                     <a class = "menu__link" data-submenu-name="places">Місця</a>
                 </li>
+                <li class = "menu__item menu__places__item">
+                    <a class = "menu__link" data-submenu-name="friends">Друзі</a>
+                </li>
             </ul>
             <div class = "submenu">
                 <ul class="places__submenu disabled">
@@ -36,6 +39,22 @@
                     </li>
                     <li class = "submenu__item submenu__places__item">
                         <a href = "/places-add" class = "menu__link" onclick="onNavItemClick('/places-add'); return false;">Додати</a>
+                    </li>
+                </ul>
+            </div>
+            <div class = "submenu">
+                <ul class="friends__submenu disabled">
+                    <li class = "submenu__item submenu__friends__item">
+                        <a href = "/friends" class = "menu__link" onclick="onNavItemClick('/friends'); return false;">Мої друзі</a>
+                    </li>
+                    <li class = "submenu__item submenu__friends__item">
+                        <a href = "/friends-add" class = "menu__link" onclick="onNavItemClick('/friends-add'); return false;">Додати</a>
+                    </li>
+                    <li class = "submenu__item submenu__friends__item">
+                        <a href = "/invitations" class = "menu__link" onclick="onNavItemClick('/invitations'); return false;">Запрошення</a>
+                    </li>
+                    <li class = "submenu__item submenu__friends__item">
+                        <a href = "/friends-find" class = "menu__link" onclick="onNavItemClick('/friends-find'); return false;">Знайти</a>
                     </li>
                 </ul>
             </div>
