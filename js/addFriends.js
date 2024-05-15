@@ -4,7 +4,7 @@ var addFriendsList = document.querySelector(".addFriends__list");
 Backendless.UserService.getCurrentUser()
     .then(currentUser => {
         Backendless.Data.of("Users").find({
-            relations: ["friends_invitations"]
+            relations: ["friends_invitations", 'friends']
         })
             .then(data => {
                 console.log(data);
@@ -40,6 +40,12 @@ function addUser(user, currentUser) {
         if (currentUser.objectId === friendInvitation.objectId) {
             element.setAttribute('disabled', null);
             element.innerText = 'На розгляді';
+        }
+    }
+    for (let friend of user['friends']) {
+        if (currentUser.objectId === friend.objectId) {
+            element.setAttribute('disabled', null);
+            element.innerText = 'Уже друг!';
         }
     }
 

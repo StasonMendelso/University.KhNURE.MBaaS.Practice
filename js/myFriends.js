@@ -38,7 +38,11 @@ function addFriend(friend, currentUser) {
     removeButton.addEventListener('click', event => {
         Backendless.Data.of("Users").deleteRelation({objectId: currentUser.objectId}, 'friends', [{objectId: friend.objectId}])
             .then(data => {
-                removeButton.parentElement.parentElement.remove();
+                Backendless.Data.of("Users").deleteRelation({objectId: friend.objectId}, 'friends', [{objectId: currentUser.objectId}])
+                    .then(data => {
+                        removeButton.parentElement.parentElement.remove();
+                    })
+                    .catch(alert);
             })
             .catch(alert);
     });
