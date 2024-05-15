@@ -11,7 +11,7 @@ Backendless.UserService.getCurrentUser()
                 let friends_invitations = data['friends_invitations'];
                 for (let friend_invitation of friends_invitations) {
                     console.log(friend_invitation);
-                    addFriendInvitation(friend_invitation);
+                    addFriendInvitation(friend_invitation, currentUser);
                 }
             })
             .catch(alert);
@@ -27,7 +27,7 @@ var friendInvitationHTML = `<div class="friend-invitation">
                             </div>
                         </div>`;
 
-function addFriendInvitation(friend) {
+function addFriendInvitation(friend, currentUser) {
     let div = document.createElement('div');
     div.innerHTML = friendInvitationHTML;
     div.querySelector(".friend-invitation-email").innerText = friend.email;
@@ -36,5 +36,36 @@ function addFriendInvitation(friend) {
     elements[0].setAttribute('data-field-id', friend.objectId);
     elements[1].setAttribute('data-field-id', friend.objectId);
 
+
+    var acceptButton = div.querySelector(".friend-invitation__accept__button");
+    acceptButton.addEventListener('click', event => {
+        Backendless.Data.of("Users").deleteRelation({objectId: currentUser.objectId}, 'friends_invitations', [{objectId: friend.objectId}])
+            .then(data => {
+                Backendless.Data.of("Users").addRelation({objectId: currentUser.objectId}, 'friends', [{objectId: friend.objectId}])
+                    .then(data => {
+                        alert("Додано!");
+                        acceptButton.parentElement.parentElement.remove();
+                    })
+                    .catch(alert);
+            })
+            .catch(alert);
+        Backendless.Data.of("Users").deleteRelation({objectId: friend.objectId}, 'friends_invitations', [{objectId: currentUser.objectId}])
+            .then(data => {
+                Backendless.Data.of("Users").addRelation({objectId: friend.objectId}, 'friends', [{objectId: currentUser.objectId}])
+                    .then(data => {
+                    })
+                    .catch(alert);
+            })
+            .catch(alert);
+    });
+    var declineButton = div.querySelector(".friend-invitation__decline__button");
+    declineButton.addEventListener('click', event => {
+        Backendless.Data.of("Users").deleteRelation({objectId: currentUser.objectId}, 'friends_invitations', [{objectId: friend.objectId}])
+            .then(data => {
+                alert("Відхилено!");
+                declineButton.parentElement.parentElement.remove();
+            })
+            .catch(alert);
+    });
     friendsInvitationsList.appendChild(div.firstChild);
 }
