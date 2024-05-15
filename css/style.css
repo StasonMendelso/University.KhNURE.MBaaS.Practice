@@ -535,7 +535,7 @@ p{
 }
 
 
-.myFriends__list {
+.addFriends__list {
     display: flex;
     flex-direction: column;
 }
@@ -559,4 +559,21 @@ p{
 }
 
 .friend__add__button {
+}
+
+.friendsInvitations__list {
+    display: flex;
+    flex-direction: column;
+}
+
+.friend-invitation {
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    background-color: whitesmoke;
+}
+
+.friend-invitation__info {
+    flex: 1 0 auto;
+    align-content: center;
 }
