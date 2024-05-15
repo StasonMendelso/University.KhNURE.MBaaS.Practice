@@ -78,6 +78,12 @@ routes = {
             return getElementFromBody(data, '#places-saved-content');
         })
     },
+    '/friends': {
+        authorize: true,
+        content: () => fetchContent('/views/friends/myFriends.html', function (data) {
+            return getElementFromBody(data, '#myFriends-find-content');
+        })
+    },
 };
 const SCRIPT_TAG_REGEX = /<script\b[^>]*>/;
 

@@ -503,3 +503,33 @@ p{
 .errors__place-adding.active{
     display: block;
 }
+
+.myFriends__container {
+
+}
+
+.myFriends__list {
+    display: flex;
+    flex-direction: column;
+}
+
+.friend {
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    background-color: whitesmoke;
+}
+
+.friend__info {
+    flex: 1 0 auto;
+    align-content: center;
+}
+
+.friend__actions {
+}
+
+.button {
+}
+
+.friend__delete__button {
+}
