@@ -96,6 +96,12 @@ routes = {
             return getElementFromBody(data, '#friendsInvitations-content');
         })
     },
+    '/friends-find': {
+        authorize: true,
+        content: () => fetchContent('/views/friends/findFriends.html', function (data) {
+            return getElementFromBody(data, '#friends-find-content');
+        })
+    },
 };
 const SCRIPT_TAG_REGEX = /<script\b[^>]*>/;
 

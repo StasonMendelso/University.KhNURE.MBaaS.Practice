@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+    <meta charset = "UTF-8">
+    <title>Social network</title>
+    <link rel = "stylesheet" href = "../../css/style.css">
+    <script src = "//api.backendless.com/sdk/js/latest/backendless.min.js"></script>
+    <script src = "../../js/init.js"></script>
+</head>
+<body>
+    <div class = "wrapper">
+        <header class = "header"></header>
+        <script src = "../../js/header.js"></script>
+        <main class = "main">
+            <div class = "container" id = "friends-find-content">
+                <div class = "places__container">
+                    <div class = "form__wrapper form__places__find">
+                        <div class = "form__header">Пошук друзів</div>
+                        <form method = "get" class = "form" name = "find-friends" action = "/must-not-go-here">
+                            <div class = "input__wrapper">
+                                <div class = "input__group">
+                                    <label for = "radius" class = "input__label">Радіус(м)</label>
+                                    <input id = "radius" type = "number" name = "radius" class = "input__field" min="0" value="0">
+                                </div>
+                                <div class = "input__group-wrapper">
+                                    <div class = "group-wrapper__header">
+                                        <span>Координати</span>
+                                    </div>
+                                    <div class = "input__group">
+                                        <label for = "longitude" class = "input__label">Довжина</label>
+                                        <input id = "longitude" type = "text" name = "longitude" class = "input__field">
+                                    </div>
+                                    <div class = "input__group">
+                                        <label for = "latitude" class = "input__label">Широта</label>
+                                        <input id = "latitude" type = "text" name = "latitude" class = "input__field">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <button type = "submit" class = "button submit__button">Пошук</button>
+                            <div class = "errors__place-finding">
+
+                            </div>
+                        </form>
+                    </div>
+                    <div class = "friends__map google__map" id="map"></div>
+                    <script src = "../../js/findFriends.js"></script>
+                </div>
+
+            </div>
+        </main>
+    </div>
+</body>
+</html>
