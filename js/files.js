@@ -361,6 +361,7 @@ document.querySelector(".upload-file__button").addEventListener("click", event =
                 loadFiles(currentPath);
             })
             .catch(function (error) {
+                Backendless.Logging.getLogger("js/files.js").error(`Problem with uploading a file: ${String(error).split("Error:")[1]}`);
                 document.querySelector(".upload-file__button").removeAttribute("disabled");
             });
     } else {

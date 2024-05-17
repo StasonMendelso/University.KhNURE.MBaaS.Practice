@@ -63,7 +63,7 @@ async function initApp() {
 
     Backendless.serverURL = 'https://eu-api.backendless.com';
     await Backendless.initApp(APP_ID, API_KEY);
-
+    Backendless.Logging.setLogReportingPolicy(3, 30); //can't be more, because it causes a problem, when logs don't be sent if user close a page or go to another view.
     await setCurrentUserIfLoggedOnServer()
 }
 
@@ -86,6 +86,9 @@ async function setCurrentUserIfLoggedOnServer() {
 function sendGeolocationIfNeeded() {
     Backendless.UserService.getCurrentUser(true).then(
         currentUser => {
+            if (!currentUser){
+                return;
+            }
             if (currentUser['track_geolocation']) {
 
                 if ("geolocation" in navigator) {
@@ -102,26 +105,33 @@ function sendGeolocationIfNeeded() {
                                 .then(data => {
                                     console.log("sended geolocation");
                                 })
-                                .catch(console.log);
+                                .catch(error=>{
+                                    Backendless.Logging.getLogger("js/global.js").error(`Problem with sending current user geolocation: ${String(error).split("Error:")[1]}`);
+                                });
                         },
                         function (error) {
                             switch (error.code) {
                                 case error.PERMISSION_DENIED:
-                                    alert("User denied the request for Geolocation.");
+                                    alert("User denied the request for Geolocation for tracking user's coordinates.");
+                                    Backendless.Logging.getLogger("js/global.js").error(`Problem with sending current user geolocation: ${error.message}`);
                                     break;
                                 case error.POSITION_UNAVAILABLE:
                                     console.error("Location information is unavailable.");
+                                    Backendless.Logging.getLogger("js/global.js").error(`Problem with sending current user geolocation: ${error.message}`);
                                     break;
                                 case error.TIMEOUT:
                                     console.error("The request to get user location timed out.");
+                                    Backendless.Logging.getLogger("js/global.js").error(`Problem with sending current user geolocation: ${error.message}`);
                                     break;
                                 default:
                                     console.error("An unknown error occurred.");
+                                    Backendless.Logging.getLogger("js/global.js").error(`Problem with sending current user geolocation: ${error.message}`);
                                     break;
                             }
                         }
                     );
                 } else {
+                    Backendless.Logging.getLogger("js/global.js").error(`Problem with sending current user geolocation: Browser doesn't support getting user's current geolocation`);
                     console.error("Geolocation is not supported by this browser.");
                 }
             }

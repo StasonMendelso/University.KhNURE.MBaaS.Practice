@@ -18,6 +18,7 @@ document.forms.login.addEventListener("submit", function (event) {
 
     function gotError( err ) // see more on error handling
     {
+        Backendless.Logging.getLogger("js/login.js").error(`Problem with authorizing: ${String(err).split("Error:")[1]}`);
         let spanElement = document.createElement("span");
         spanElement.innerText = err;
         errorsDiv.appendChild(spanElement);
