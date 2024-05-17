@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+    <meta charset = "UTF-8">
+    <title>Social network</title>
+    <link rel = "stylesheet" href = "../../css/style.css">
+    <script src = "//api.backendless.com/sdk/js/latest/backendless.min.js"></script>
+    <script src = "../../js/init.js"></script>
+</head>
+<body>
+    <div class = "wrapper">
+        <header class = "header"></header>
+        <script src = "../../js/header.js"></script>
+        <main class = "main">
+            <div class = "container" id = "feedback-content">
+                <div class = "feedback__container">
+                    <div class = "form__wrapper form__feedback">
+                        <div class = "form__header">Розробнику</div>
+                        <form method = "get" class = "form" name = "feedback" action = "/must-not-go-here">
+                            <div class = "input__wrapper">
+                                <div class = "input__group">
+                                    <label for = "feedback-type" class = "input__label">Тип листа</label>
+                                    <select id = "feedback-type"  name = "feedback-type" class = "input__field">
+                                        <option value="Порада">Порада</option>
+                                        <option value="Помилка">Помилка</option>
+                                    </select>
+                                </div>
+                                <div class = "input__group">
+                                    <label for = "feedback-text" class = "input__label">Текст повідомлення</label>
+                                    <textarea id = "feedback-text" type = "number" name = "feedback-text" class = "input__field" placeholder="Введіть повідомлення" style="resize: vertical; height: 200px"></textarea>
+                                </div>
+                            </div>
+                            <button type = "submit" class = "button submit__button">Надіслати листа</button>
+                            <div class = "errors__mail-sending">
+
+                            </div>
+                        </form>
+                    </div>
+                    <script src = "../js/feedback.js"></script>
+                </div>
+
+            </div>
+        </main>
+    </div>
+</body>
+</html>

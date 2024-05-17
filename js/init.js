@@ -102,6 +102,12 @@ routes = {
             return getElementFromBody(data, '#friends-find-content');
         })
     },
+    '/feedback': {
+        authorize: true,
+        content: () => fetchContent('/views/feedback.html', function (data) {
+            return getElementFromBody(data, '#feedback-content');
+        })
+    },
 };
 const SCRIPT_TAG_REGEX = /<script\b[^>]*>/;
 

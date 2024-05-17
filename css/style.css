@@ -577,3 +577,11 @@ p{
     flex: 1 0 auto;
     align-content: center;
 }
+.form__feedback{
+    width: 100%;
+    max-width: 100%;
+    top: unset;
+    left:  unset;
+    transform: unset;
+    position: unset;
+}
