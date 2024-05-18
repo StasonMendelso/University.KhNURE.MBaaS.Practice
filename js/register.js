@@ -1,10 +1,12 @@
-document.forms.register.addEventListener('submit', function(event) {
+document.forms.register.addEventListener('submit', function (event) {
     if (event.target === document.forms.register) {
         event.preventDefault();
         let registerForm = event.target;
         let errorsDiv = registerForm.querySelector(".errors__registration");
         errorsDiv.classList.remove("active");
-        errorsDiv.childNodes.forEach(node=> {node.remove()});
+        errorsDiv.childNodes.forEach(node => {
+            node.remove()
+        });
 
         let submitButton = registerForm.querySelector(".submit__button");
         submitButton.disabled = true;
@@ -16,15 +18,16 @@ document.forms.register.addEventListener('submit', function(event) {
         user.age = parseInt(registerForm.age.value);
         user.sex = registerForm.sex.value;
         user.username = registerForm.username.value;
+        user.birthdate = new Date(new Date(registerForm.birthdate.value).toUTCString().slice(0, -4)); //convert to UTC
 
         function userRegistered(user) {
             console.log("User has been registered:", user);
             registerForm.querySelector(".successful__registration").classList.add("active");
             Backendless.Files.createDirectory(`/web/users/${user.email}`)
-                .then(()=>{
+                .then(() => {
                     console.log("personal directory for user was created");
                     Backendless.Files.createDirectory(`/web/users/${user.email}/shared-with-me`)
-                        .then(()=>{
+                        .then(() => {
                             console.log("shared-with-me directory for user was created");
 
                         })
