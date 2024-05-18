@@ -42,7 +42,7 @@ routes = {
             return getElementFromBody(data, '#profile-content');
         })
     },
-    '/profile/edit': {
+    '/profile-edit': {
         authorize: true,
         content: () => fetchContent('/views/profile_edit.html', function (data) {
             return getElementFromBody(data, '#profile-edit-content');

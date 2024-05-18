@@ -20,8 +20,8 @@ function loadFiles(path) {
         Backendless.Data.of("SharedFiles").find(queryBuilder)
             .then(sharedFiles => {
                 console.log(sharedFiles);
-                let files = sharedFiles.filter(element => element.fileId.length>0)
-                    .map(element => element.fileId[0].fileReference)
+                let files = sharedFiles
+                    .map(element => element.fileId.fileReference)
                     .map(fileReference => {
                         return {
                             name: fileReference.split('/files' + ROOT_USERS_DIRECTORY)[1].replace('%40', '@'),
@@ -104,6 +104,7 @@ function render(filesAndDirectoryArray) {
                 divElement.querySelector(".file__delete-button").remove();
             }
             divElement.querySelector(".directory__name").innerText = element.name;
+            divElement.querySelector(".file__name").setAttribute('data-file-public-url', element.publicUrl);
         } else {
             if(element.name.split("\.")[0] === "avatar"){
                 return;
@@ -111,6 +112,7 @@ function render(filesAndDirectoryArray) {
             divElement.innerHTML = fileRowHtml;
             divElement = divElement.firstChild;
             divElement.querySelector(".file__name").innerText = element.name;
+            console.log(element.publicUrl);
             divElement.querySelector(".file__name").setAttribute('data-file-public-url', element.publicUrl);
             if (isSharedWithMeDirectory()) {
                 divElement.querySelector(".file__delete-button").remove();
@@ -191,9 +193,13 @@ function render(filesAndDirectoryArray) {
             Backendless.Files.remove(ROOT_USERS_DIRECTORY + currentPath + "/" + name)
                 .then(data => {
                     var queryBuilder = Backendless.DataQueryBuilder.create();
+                    console.log(publicUrl);
                     queryBuilder.setWhereClause(`fileReference LIKE '%${publicUrl}'`);
                     Backendless.Data.of("Files").find(queryBuilder)
                         .then(function (object) {
+                            if (object.length!==1){
+                                return;
+                            }
                             Backendless.Data.of("Files").remove(object[0].objectId)
                                 .then(function (timestamp) {
                                     console.log("File instance has been deleted");
@@ -226,8 +232,9 @@ function render(filesAndDirectoryArray) {
                     queryBuilder.setRelationsDepth(1);
                     Backendless.Data.of("SharedFiles").find(queryBuilder)
                         .then(function (objects) {
+                            console.log(objects);
                             objects.forEach(element => {
-                                emailsShared.insertAdjacentHTML('afterbegin', `<p>${element.userId[0].email}</p>`);
+                                emailsShared.insertAdjacentHTML('afterbegin', `<p>${element.userId.email}</p>`);
                             })
                         })
                         .catch(function (error) {

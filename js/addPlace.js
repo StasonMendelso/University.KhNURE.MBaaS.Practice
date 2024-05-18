@@ -139,3 +139,34 @@ addForm.addEventListener('submit', event => {
             }));
     }
 })
+initAddForm()
+function initAddForm(){
+    if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(
+            function (position) {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+                addForm['longitude'].value = longitude;
+                addForm['latitude'].value = latitude;
+            },
+            function (error) {
+                switch (error.code) {
+                    case error.PERMISSION_DENIED:
+                        alert("User denied the request for Geolocation.");
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        console.error("Location information is unavailable.");
+                        break;
+                    case error.TIMEOUT:
+                        console.error("The request to get user location timed out.");
+                        break;
+                    default:
+                        console.error("An unknown error occurred.");
+                        break;
+                }
+            }
+        );
+    } else {
+        console.error("Geolocation is not supported by this browser.");
+    }
+}

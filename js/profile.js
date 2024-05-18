@@ -9,9 +9,11 @@ Backendless.UserService.getCurrentUser(true)
         let informationRowValueSpans = profileWrapper.querySelectorAll(".information-row__value");
         informationRowValueSpans.forEach(element => {
             let userProperty = user[element.dataset['fieldName']];
-
             if (userProperty && element.tagName.toLowerCase() === "span") {
                 element.innerText = userProperty;
+                if (element.dataset['fieldName'] === 'birthdate') {
+                    element.innerText = new Date(userProperty).toDateString();
+                }
             }
             if (userProperty && element.tagName.toLowerCase() === "input") {
                 if (element.type === "checkbox") {
@@ -63,7 +65,7 @@ function getAvatar() {
 
 }
 
-document.querySelector("input[data-field-name='track_geolocation']").addEventListener("change",event => {
+document.querySelector("input[data-field-name='track_geolocation']").addEventListener("change", event => {
     let user = Backendless.UserService.currentUser;
     user['track_geolocation'] = event.target.checked;
     Backendless.UserService.update(user)

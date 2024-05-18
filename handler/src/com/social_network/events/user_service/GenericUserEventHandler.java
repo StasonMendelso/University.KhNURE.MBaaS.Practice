@@ -3,8 +3,10 @@ package com.social_network.events.user_service;
 
 import com.backendless.Backendless;
 import com.backendless.BackendlessUser;
+import com.backendless.logging.Logger;
 import com.backendless.servercode.ExecutionResult;
 import com.backendless.servercode.RunnerContext;
+import com.social_network.timers.CheckCompleteYearsFromCreatedDateTimer;
 
 /**
  * GenericUserEventHandler handles the User Service events.
@@ -23,17 +25,19 @@ public class GenericUserEventHandler extends com.backendless.servercode.extensio
 
     @Override
     public void afterLogin(RunnerContext context, String login, String password, ExecutionResult<BackendlessUser> result) throws Exception {
+        Logger logger = Backendless.Logging.getLogger(GenericUserEventHandler.class);
         if (result.getResult() != null && result.getException() == null) {
             Backendless.Counters.incrementAndGet("online_users");
-            System.out.println("online_users was incremented!");
+            logger.trace("online_users was incremented!");
         }
     }
 
 //    @Override
 //    public void afterLogout(RunnerContext context, ExecutionResult result) throws Exception {
+//        Logger logger = Backendless.Logging.getLogger(GenericUserEventHandler.class);
 //        if (result.getResult()==null && result.getException() == null){
 //            Backendless.Counters.decrementAndGet("online_users");
-//            System.out.println("online_users was decremented!");
+//            logger.trace("online_users was decremented!");
 //        }
 //    }
 }

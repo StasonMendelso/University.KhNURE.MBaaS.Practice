@@ -10,7 +10,9 @@ import com.backendless.messaging.EmailEnvelope;
 import com.backendless.messaging.MessageStatus;
 import com.backendless.servercode.annotation.BackendlessTimer;
 
-import java.time.*;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.ZoneId;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -37,7 +39,12 @@ public class CheckCompleteYearsFromCreatedDateTimer extends com.backendless.serv
                 .filter(backendlessUser -> {
                     Date birthdate = (Date) backendlessUser.getProperty("birthdate");
                     LocalDate birthdateKievDate = LocalDate.ofInstant(birthdate.toInstant(), ZoneId.of("Europe/Kiev"));
-                    return today.isEqual(birthdateKievDate);
+                    if (birthdateKievDate.getMonth() == Month.FEBRUARY && birthdateKievDate.getDayOfMonth() == 29) {
+                        return (today.getMonth() == Month.FEBRUARY && today.getDayOfMonth() == 28 && !today.isLeapYear())
+                                || (today.getMonth() == Month.FEBRUARY && today.getDayOfMonth() == 29 && today.isLeapYear());
+                    } else {
+                        return today.getMonth() == birthdateKievDate.getMonth() && today.getDayOfMonth() == birthdateKievDate.getDayOfMonth();
+                    }
                 }).collect(Collectors.toList());
         if (backendlessUserList.isEmpty()) {
             logger.info("No one has got birthdate today.");
@@ -60,7 +67,6 @@ public class CheckCompleteYearsFromCreatedDateTimer extends com.backendless.serv
                                 case UNKNOWN -> logger.error("Greeting has unknown status of sending: " + response);
                             }
                         }
-
                         @Override
                         public void handleFault(BackendlessFault fault) {
                             logger.error("Error while sending greeting:" + fault.toString());

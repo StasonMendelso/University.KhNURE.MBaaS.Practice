@@ -13,6 +13,9 @@ Backendless.UserService.getCurrentUser(true)
             if (userProperty) {
                 valueInput.value = userProperty;
             }
+            if (valueInput.type === "date") {
+                valueInput.value = new Date(userProperty).toISOString().substring(0, 10);
+            }
         });
     })
     .catch(error => {
@@ -38,6 +41,7 @@ document.forms.profileEdit.addEventListener('submit', function (event) {
         user.age = parseInt(profileEditForm.age.value);
         user.sex = profileEditForm.sex.value;
         user.username = profileEditForm.username.value;
+        user.birthdate = profileEditForm.birthdate.valueAsNumber;
 
         function userUpdated(user) {
             console.log("User has been updated:", user);
@@ -49,6 +53,7 @@ document.forms.profileEdit.addEventListener('submit', function (event) {
                 node.remove()
             });
             console.error("Error during updating:", err);
+            console.log(user)
             let spanElement = document.createElement("span");
             spanElement.innerText = err;
             errorsDiv.appendChild(spanElement);
